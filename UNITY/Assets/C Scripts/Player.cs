@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
 
     private int health = 100;
 
+    [SerializeField]
+    private float rotationSpeed;
+
     public GameObject projectilePrefab;
 
     private Animator animator;
@@ -21,10 +24,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public bool smoothRotation = true;
     private bool AreaAttacking = false;
-    public float rotationSpeed = 720f; // degrees per second for smoothing
-    public float angleOffset = 0f; // add if sprite's art faces up instead of right
+    public float angleOffset = 90f; // add if sprite's art faces up instead of right
 
-
+    
 
 
 
@@ -47,18 +49,37 @@ public class Player : MonoBehaviour
         position.y = position.y + speed * Time.deltaTime * moveY;
         transform.position = position;
 
+        Vector2 movemntDirection = new Vector2(moveX, moveY);
+        movemntDirection.Normalize();
+
         //if (Input.GetKeyDown(KeyCode.F))
         //{
         //    GameObject projectile = Instantiate(projectilePrefab, rb.position, Quaternion.identity);
-       //     Projectile pr = projectile.GetComponent<Projectile>();
-     //       pr.Launch(new Vector2(animator.GetInteger("Direction X"), animator.GetInteger("Direction Y")), 300);
-   //     }
+        //     Projectile pr = projectile.GetComponent<Projectile>();
+        //       pr.Launch(new Vector2(animator.GetInteger("Direction X"), animator.GetInteger("Direction Y")), 300);
+        //     }
 
-      if(Input.GetKeyDown(KeyCode.F))
-      {
-          GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-          Projectile pr = projectile.GetComponent<Projectile>();
-      }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Projectile pr = projectile.GetComponent<Projectile>();
+        }
+
+        Vector2 movementDirection = new Vector2(moveX, moveY);
+
+        if (movementDirection.sqrMagnitude > 0.01f)
+        {
+            float targetAngle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg + 90f; // tank faces up
+
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+
+            if (smoothRotation)
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            else
+                transform.rotation = targetRotation;
+        }
+
+
 
     }
 

@@ -3965,6 +3965,8 @@ GameObject:
   - component: {fileID: 177799591}
   - component: {fileID: 177799593}
   - component: {fileID: 177799592}
+  - component: {fileID: 177799594}
+  - component: {fileID: 177799595}
   m_Layer: 12
   m_Name: BWalls
   m_TagString: Untagged
@@ -4192,6 +4194,55 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!114 &177799594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177799590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 636cc90d9668af04fbb26536db0c04bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+--- !u!19719996 &177799595
+TilemapCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177799590}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_MaximumTileChangeCount: 1000
+  m_ExtrusionFactor: 0
+  m_UseDelaunayMesh: 0
 --- !u!1 &190845752
 GameObject:
   m_ObjectHideFlags: 0
@@ -6193,15 +6244,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479241067}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.999, y: -4.001, z: 0}
   m_LocalScale: {x: 1, y: 1.0125, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2011646086}
   - {fileID: 459490319}
+  - {fileID: 2011646086}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1479241071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6217,11 +6268,11 @@ MonoBehaviour:
   speed: 1
   directionX: 0
   directionY: 0
-  timeToAttack: 0
-  attackedTimer: 0
+  timeToAttack: 1
+  attackedTimer: 0.5
+  rotationSpeed: 720
   projectilePrefab: {fileID: 895070265}
   smoothRotation: 1
-  rotationSpeed: 720
   angleOffset: 0
 --- !u!50 &1479241072
 Rigidbody2D:
@@ -6258,7 +6309,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479241067}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 4b71de283c12e68408307097fe27c777, type: 2}
   m_CullingMode: 0
@@ -6479,7 +6530,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1589548042}
   - component: {fileID: 1589548041}
-  - component: {fileID: 1589548043}
   m_Layer: 0
   m_Name: Breakable walls
   m_TagString: Untagged
@@ -6515,19 +6565,6 @@ Transform:
   - {fileID: 177799591}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1589548043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1589548040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 636cc90d9668af04fbb26536db0c04bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 200
 --- !u!1 &1602603840
 GameObject:
   m_ObjectHideFlags: 0
@@ -6760,9 +6797,9 @@ MonoBehaviour:
   directionY: 0
   timeToAttack: 0
   attackedTimer: 0
+  rotationSpeed: 720
   projectilePrefab: {fileID: 0}
   smoothRotation: 1
-  rotationSpeed: 720
   angleOffset: 0
 --- !u!1001 &2698659786132126292
 PrefabInstance:
