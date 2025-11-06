@@ -4383,7 +4383,7 @@ GameObject:
   - component: {fileID: 459490319}
   - component: {fileID: 459490321}
   - component: {fileID: 459490320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ThunderAreaAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6244,7 +6244,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479241067}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: -11.999, y: -4.001, z: 0}
   m_LocalScale: {x: 1, y: 1.0125, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6252,7 +6252,7 @@ Transform:
   - {fileID: 459490319}
   - {fileID: 2011646086}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &1479241071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6270,6 +6270,7 @@ MonoBehaviour:
   directionY: 0
   timeToAttack: 1
   attackedTimer: 0.5
+  projectileSpeed: 100
   rotationSpeed: 720
   projectilePrefab: {fileID: 895070265}
   smoothRotation: 1
@@ -6797,6 +6798,7 @@ MonoBehaviour:
   directionY: 0
   timeToAttack: 0
   attackedTimer: 0
+  projectileSpeed: 10
   rotationSpeed: 720
   projectilePrefab: {fileID: 0}
   smoothRotation: 1

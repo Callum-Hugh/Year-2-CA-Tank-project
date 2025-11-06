@@ -9,13 +9,14 @@ public class Player : MonoBehaviour
     public float timeToAttack;
     public float attackedTimer;
 
+    public float projectileSpeed;
+
     private int health = 100;
 
     [SerializeField]
     private float rotationSpeed;
 
     public GameObject projectilePrefab;
-    public float projectileSpeed;
 
     private Animator animator;
     private Vector2 startPosition;
@@ -60,8 +61,7 @@ public class Player : MonoBehaviour
         //       pr.Launch(new Vector2(animator.GetInteger("Direction X"), animator.GetInteger("Direction Y")), 300);
         //     }
 
-        
-        //Rotating the pleyer
+        //Rotating the pleyer Got help from chatGPT to roatate
         Vector2 movementDirection = new Vector2(moveX, moveY);
 
         if (movementDirection.sqrMagnitude > 0.01f)
@@ -76,36 +76,12 @@ public class Player : MonoBehaviour
                 transform.rotation = targetRotation;
         }
 
+    
         if (Input.GetKeyDown(KeyCode.F))
         {
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             Projectile pr = projectile.GetComponent<Projectile>();
-            pr.Launch(movementDirection, projectileSpeed);           
-        }
-
-
-    }
-
-    private void UpdateAnimation(float moveX, float moveY)
-    {
-        animator.SetFloat("Move Horizontal", moveX);
-        animator.SetFloat("Move Vertical", moveY);
-        if (moveX > 0)
-        {
-            animator.SetInteger("Direction X" , 1);
-        }
-        else if (moveX < 0)
-        {
-            animator.SetInteger("Direction X", -1);
-        }
-
-        if (moveY > 0)
-        {
-            animator.SetInteger("Direction Y", 1);
-        }
-        else if (moveY < 0)
-        {
-            animator.SetInteger("Direction Y", -1);
+            pr.Launch(movementDirection, projectileSpeed);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -124,8 +100,8 @@ public class Player : MonoBehaviour
                 ThunderAreaAttack.SetActive(AreaAttacking);
             }
         }
-            
     }
+
 
     private void Attack()
     {
