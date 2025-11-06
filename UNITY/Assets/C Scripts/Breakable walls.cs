@@ -13,7 +13,7 @@ public class Breakablewalls : MonoBehaviour
     void Update()
     {
 
-        if (destroyed = true)
+        if (destroyed == true)
         {
             Destroy(this.gameObject);
         }
@@ -24,7 +24,7 @@ public class Breakablewalls : MonoBehaviour
         if (collision.CompareTag("PlayerProjectile"))
         {
             health--;
-            if (health <= 0)
+            if (health < 0)
             {
                 destroyed = true;
             }

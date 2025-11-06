@@ -21,7 +21,7 @@ public class Enemy_Tank : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _animator = GetComponent<Animator>();
+        //_animator = GetComponent<Animator>();
         timeInDirection = distanceTime;
     }
 
@@ -36,9 +36,9 @@ public class Enemy_Tank : MonoBehaviour
                 directionX = directionX * -1;
                 timeInDirection = distanceTime;
                 isIdle = false;
-                _animator.SetInteger("Direction X", directionX);
-                _animator.SetInteger("Direction Y", directionY);
-                _animator.SetFloat("Move", 1);
+                //_animator.SetInteger("Direction X", directionX);
+                //_animator.SetInteger("Direction Y", directionY);
+                //_animator.SetFloat("Move", 1);
             }
 
             else if (!isIdle && timeInDirection < 0)

@@ -1,0 +1,112 @@
+using UnityEngine;
+
+public class Player : MonoBehaviour
+{
+
+    public int speed;
+    public int directionX ;
+    public int directionY ;
+    public float timeToAttack;
+    public float attackedTimer;
+
+    private int health = 100;
+
+    public GameObject projectilePrefab;
+
+    private Animator animator;
+    private Vector2 startPosition;
+    [Header("Rotation")]
+    private GameObject ThunderAreaAttack;
+
+    private Rigidbody2D rb;
+    public bool smoothRotation = true;
+    private bool AreaAttacking = false;
+    public float rotationSpeed = 720f; // degrees per second for smoothing
+    public float angleOffset = 0f; // add if sprite's art faces up instead of right
+
+
+
+
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+        startPosition = transform.position;
+        ThunderAreaAttack = transform.GetChild(0).gameObject;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+
+        Vector2 position = transform.position;
+        float moveX = Input.GetAxis("Horizontal");
+        float moveY = Input.GetAxis("Vertical");
+        position.x = position.x + speed * Time.deltaTime * moveX;
+        position.y = position.y + speed * Time.deltaTime * moveY;
+        transform.position = position;
+
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    GameObject projectile = Instantiate(projectilePrefab, rb.position, Quaternion.identity);
+       //     Projectile pr = projectile.GetComponent<Projectile>();
+     //       pr.Launch(new Vector2(animator.GetInteger("Direction X"), animator.GetInteger("Direction Y")), 300);
+   //     }
+
+      if(Input.GetKeyDown(KeyCode.F))
+      {
+          GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+          Projectile pr = projectile.GetComponent<Projectile>();
+      }
+
+    }
+
+    private void UpdateAnimation(float moveX, float moveY)
+    {
+        animator.SetFloat("Move Horizontal", moveX);
+        animator.SetFloat("Move Vertical", moveY);
+        if (moveX > 0)
+        {
+            animator.SetInteger("Direction X" , 1);
+        }
+        else if (moveX < 0)
+        {
+            animator.SetInteger("Direction X", -1);
+        }
+
+        if (moveY > 0)
+        {
+            animator.SetInteger("Direction Y", 1);
+        }
+        else if (moveY < 0)
+        {
+            animator.SetInteger("Direction Y", -1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Attack();
+        }
+
+        if (AreaAttacking)
+        {
+            attackedTimer += Time.deltaTime;
+
+            if(attackedTimer >= timeToAttack)
+            {
+                timeToAttack = 0;
+                AreaAttacking = false;
+                ThunderAreaAttack.SetActive(AreaAttacking);
+            }
+        }
+            
+    }
+
+    private void Attack()
+    {
+        AreaAttacking = true;
+        ThunderAreaAttack.SetActive(AreaAttacking);
+    }
+
+}
