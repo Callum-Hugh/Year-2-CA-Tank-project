@@ -1,22 +1,26 @@
-using System.Numerics;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    private Rigidbody2D rbody;
 
-    Rigidbody2D rbody;
+    [Tooltip("Seconds before the projectile is automatically destroyed")]
+    public float lifeTime = 3f;
 
     void Awake()
     {
         rbody = GetComponent<Rigidbody2D>();
     }
 
-    //Look back why need for vector2
-    public void Launch(UnityEngine.Vector2 direction, float force)
+    // Launch the projectile in a direction. `speed` is treated as units/sec velocity.
+    public void Launch(Vector2 direction, float speed)
     {
-        rbody.AddForce(direction * force);
-    }
+        if (rbody == null)
+            rbody = GetComponent<Rigidbody2D>();
 
+        rbody.velocity = direction.normalized * speed;
+        Destroy(gameObject, lifeTime);
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

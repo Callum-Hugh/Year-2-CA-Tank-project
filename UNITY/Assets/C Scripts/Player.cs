@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private float rotationSpeed;
 
     public GameObject projectilePrefab;
+    public float projectileSpeed;
 
     private Animator animator;
     private Vector2 startPosition;
@@ -59,12 +60,8 @@ public class Player : MonoBehaviour
         //       pr.Launch(new Vector2(animator.GetInteger("Direction X"), animator.GetInteger("Direction Y")), 300);
         //     }
 
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            Projectile pr = projectile.GetComponent<Projectile>();
-        }
-
+        
+        //Rotating the pleyer
         Vector2 movementDirection = new Vector2(moveX, moveY);
 
         if (movementDirection.sqrMagnitude > 0.01f)
@@ -79,6 +76,12 @@ public class Player : MonoBehaviour
                 transform.rotation = targetRotation;
         }
 
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Projectile pr = projectile.GetComponent<Projectile>();
+            pr.Launch(movementDirection, projectileSpeed);           
+        }
 
 
     }
