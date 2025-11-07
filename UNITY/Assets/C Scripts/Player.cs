@@ -93,32 +93,16 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Attack();
+            
         }
 
-        if (AreaAttacking)
-        {
-            attackedTimer += Time.deltaTime;
-
-            if (attackedTimer >= timeToAttack)
-            {
-                timeToAttack = 0;
-                AreaAttacking = false;
-                ThunderAreaAttack.SetActive(AreaAttacking);
-            }
-        }
         
-        if(Input.GetKeyDown(KeyCode.H))
-        {
-            TakeDamege(10);
-        }
-    }
-
-
-    private void Attack()
-    {
-        AreaAttacking = true;
-        ThunderAreaAttack.SetActive(AreaAttacking);
+        
+        //Test healthbar
+        //if(Input.GetKeyDown(KeyCode.H))
+        //{
+        //    TakeDamege(10);
+        //}
     }
 
     void TakeDamege(int damage)
