@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -11,7 +12,11 @@ public class Player : MonoBehaviour
 
     public float projectileSpeed;
 
-    private int health = 100;
+    public int health = 100;
+
+    public int currentHealth;
+
+    public bool alive = true;
 
     [SerializeField]
     private float rotationSpeed;
@@ -28,7 +33,7 @@ public class Player : MonoBehaviour
     private bool AreaAttacking = false;
     public float angleOffset = 90f; // add if sprite's art faces up instead of right
 
-    
+    public HealthBar healthBar;
 
 
 
@@ -38,6 +43,8 @@ public class Player : MonoBehaviour
         animator = GetComponent<Animator>();
         startPosition = transform.position;
         ThunderAreaAttack = transform.GetChild(0).gameObject;
+        currentHealth = health;
+        healthBar.SetMaxHealth(health);
     }
 
     // Update is called once per frame
@@ -93,12 +100,17 @@ public class Player : MonoBehaviour
         {
             attackedTimer += Time.deltaTime;
 
-            if(attackedTimer >= timeToAttack)
+            if (attackedTimer >= timeToAttack)
             {
                 timeToAttack = 0;
                 AreaAttacking = false;
                 ThunderAreaAttack.SetActive(AreaAttacking);
             }
+        }
+        
+        if(Input.GetKeyDown(KeyCode.H))
+        {
+            TakeDamege(10);
         }
     }
 
@@ -107,6 +119,26 @@ public class Player : MonoBehaviour
     {
         AreaAttacking = true;
         ThunderAreaAttack.SetActive(AreaAttacking);
+    }
+
+    void TakeDamege(int damage)
+    {
+        currentHealth -= damage;
+
+        healthBar.SetHealth(currentHealth);
+
+        if(currentHealth <= 0)
+        {
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        alive = false;
+
+        Debug.Log("Player Dead");
+        Destroy(gameObject);
     }
 
 }
