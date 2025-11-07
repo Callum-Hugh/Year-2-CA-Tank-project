@@ -2163,6 +2163,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 0, y: 0, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 6
+      m_TileSpriteIndex: 6
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 1, y: 0, z: 0}
     second:
       serializedVersion: 2
@@ -3597,7 +3607,7 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: e1a58be16a2b15246b3371ce7fb54786, type: 2}
   - m_RefCount: 46
     m_Data: {fileID: 11400000, guid: f95f2713eecbd8849a45d46e55053c75, type: 2}
-  - m_RefCount: 31
+  - m_RefCount: 32
     m_Data: {fileID: 11400000, guid: 8ec3e4b902a945f408f9632fc22dc452, type: 2}
   - m_RefCount: 46
     m_Data: {fileID: 11400000, guid: 7c8c16b3a5bbd6e4aba0463918feb646, type: 2}
@@ -3624,7 +3634,7 @@ Tilemap:
     m_Data: {fileID: 21303612, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
   - m_RefCount: 46
     m_Data: {fileID: 21303620, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-  - m_RefCount: 31
+  - m_RefCount: 32
     m_Data: {fileID: 21303614, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
   - m_RefCount: 46
     m_Data: {fileID: 21303622, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
@@ -3639,7 +3649,7 @@ Tilemap:
   - m_RefCount: 0
     m_Data: {fileID: 0}
   m_TileMatrixArray:
-  - m_RefCount: 337
+  - m_RefCount: 338
     m_Data:
       e00: 1
       e01: 0
@@ -3658,7 +3668,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 337
+  - m_RefCount: 338
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -5888,6 +5898,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &827020848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8763379379215661517, guid: 5414c0faa7b2e1e4eba9227519025598, type: 3}
+  m_PrefabInstance: {fileID: 5075771708952301622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &827020852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827020848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2452cd9ae04e5b747b25572ee891a31f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 4
 --- !u!1 &895070265 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7434234815565635363, guid: 3a88d93790cfa5044b8778e9d15f8a71, type: 3}
@@ -5905,6 +5933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2452cd9ae04e5b747b25572ee891a31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lifeTime: 4
 --- !u!95 &895070275
 Animator:
   serializedVersion: 5
@@ -6159,7 +6188,7 @@ MonoBehaviour:
   directionY: 0
   timeToAttack: 1
   attackedTimer: 0.5
-  projectileSpeed: 100
+  projectileSpeed: 10
   health: 100
   currentHealth: 0
   alive: 1
@@ -6230,10 +6259,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackOrigin: {fileID: 236965759}
   attackRadius: 0.86
-  damage: 0
+  damage: 25
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 2048
   enemy: {fileID: 0}
-  attackCooldownTime: 0
-  attackCooldownTimer: 0
+  attackCooldownTime: 2
 --- !u!1 &1507220684
 GameObject:
   m_ObjectHideFlags: 0
@@ -6957,7 +6988,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8763379379215661517, guid: 5414c0faa7b2e1e4eba9227519025598, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 827020852}
   m_SourcePrefab: {fileID: 100100000, guid: 5414c0faa7b2e1e4eba9227519025598, type: 3}
 --- !u!1001 &7607902682413211003
 PrefabInstance:

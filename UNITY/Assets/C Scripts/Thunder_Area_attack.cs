@@ -9,27 +9,44 @@ public class Thunder_Area_attack : MonoBehaviour
 
     public int damage;
 
+    public LayerMask enemyMask;
+
     public Enemy_Tank enemy;
+    
 
-    public float attackCooldownTime;
+    [Header("Cooldown")]
+    public float attackCooldownTime = 2f; 
+    private float attackCooldownTimer = 0f;
 
-    public float attackCooldownTimer;
+    private void Start()
+    {
+        attackCooldownTimer = 0f;  
+    }
 
     private void Update()
     {
-        if (attackCooldownTimer <= 0)
-        {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                enemy.GetComponent<Enemy_Tank>().TakeDamage(damage);
-            }
-
-            attackCooldownTimer = attackCooldownTime;
-        }
-
-        else
+        if (attackCooldownTimer > 0)
         {
             attackCooldownTimer -= Time.deltaTime;
+        }
+
+        if (attackCooldownTimer <= 0 && Input.GetKeyDown(KeyCode.Space))
+        {
+
+            if (attackOrigin != null)
+            {
+                Collider2D[] enemysInRange = Physics2D.OverlapCircleAll(attackOrigin.position, attackRadius, enemyMask);
+                foreach (var enemy in enemysInRange)
+                {
+                    Enemy_Tank enemyTank = enemy.GetComponent<Enemy_Tank>();
+                    if (enemyTank != null)
+                    {
+                        enemyTank.TakeDamage(damage);
+                    }
+                }
+
+                attackCooldownTimer = attackCooldownTime;
+            }
         }
     } 
 

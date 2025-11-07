@@ -86,15 +86,18 @@ public class Player : MonoBehaviour
     
         if (Input.GetKeyDown(KeyCode.F))
         {
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            // Determine shooting direction: movement direction if moving, otherwise the tank's facing (transform.up)
+            Vector2 shootDirection = movementDirection.sqrMagnitude > 0.01f ? movementDirection.normalized : (Vector2)transform.up;
+
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile pr = projectile.GetComponent<Projectile>();
-            pr.Launch(movementDirection, projectileSpeed);
+            if (pr != null)
+            {
+                pr.Launch(shootDirection, projectileSpeed);
+            }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            
-        }
+       
 
         
         

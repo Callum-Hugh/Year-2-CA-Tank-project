@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour
 
     Rigidbody2D rbody;
 
+    public int damage = 10;
+
     void Awake()
     {
         rbody = GetComponent<Rigidbody2D>();
