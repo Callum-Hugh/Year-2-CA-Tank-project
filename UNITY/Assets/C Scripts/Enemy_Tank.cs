@@ -13,8 +13,13 @@ public class Enemy_Tank : MonoBehaviour
     public float speed;
     public int health;
 
+    public int currentHealth;
+
+    public HealthBar healthBar;
+
+    public bool isDead = false;
+
     //private float timeInDirection;
-    //private bool isDead = false;
     //private int moveTimer = 3;
     //private bool isIdle = false;
     //private float idleTime = 1;
@@ -27,6 +32,12 @@ public class Enemy_Tank : MonoBehaviour
 
     private Vector2 targetDirection;
 
+    void Start()
+    {
+        currentHealth = health;
+        healthBar.SetMaxHealth(health);
+    }
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -35,6 +46,9 @@ public class Enemy_Tank : MonoBehaviour
 
     void Update()
     {
+
+
+
         //  if (!isDead)
         //  {
 
@@ -85,7 +99,7 @@ public class Enemy_Tank : MonoBehaviour
         RotateTwordsTarget();
         SetVolocity();
     }
-    
+
     // private void UpdateTargetDirection()
     //{
     //    if (enemyAwarness.AwareOfPlayer)
@@ -103,13 +117,13 @@ public class Enemy_Tank : MonoBehaviour
     {
         if (enemyAwarness != null && enemyAwarness.AwareOfPlayer)
         {
-          // ensure it's a Unity Vector2 and normalize if used for rotation/velocity
+            // ensure it's a Unity Vector2 and normalize if used for rotation/velocity
             targetDirection = enemyAwarness.DirectionToPlayer;
         }
         else
         {
             // fallback: use patrol direction so enemy still moves when not chasing
-             targetDirection = Vector2.zero;
+            targetDirection = Vector2.zero;
         }
     }
 
@@ -136,6 +150,32 @@ public class Enemy_Tank : MonoBehaviour
         {
             rb.velocity = transform.up * speed;
         }
-    }    
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Projectile"))
+        {
+            TakeDamage(10);
+        }
+
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+
+        if(currentHealth <= 0)
+        {
+            Dead();
+        }
+    }
+
+    void Dead()
+    {
+        isDead = true;
+        Destroy(gameObject);
+    }
 
 }

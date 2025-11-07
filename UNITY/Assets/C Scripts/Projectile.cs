@@ -11,7 +11,6 @@ public class Projectile : MonoBehaviour
         rbody = GetComponent<Rigidbody2D>();
     }
 
-    //Look back why need for vector2
     public void Launch(UnityEngine.Vector2 direction, float force)
     {
         rbody.AddForce(direction * force);
