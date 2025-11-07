@@ -3,38 +3,29 @@ using UnityEngine;
 public class Enemy_Tank : MonoBehaviour
 {
 
-    Animator _animator;
+    //Animator _animator;
 
     public int directionX = 0;
     public int directionY = 0;
     public float distanceTime;
+
+    [SerializeField]
     public float speed;
     public int health;
 
-    private float timeInDirection;
-    private bool isDead = false;
-    private int moveTimer = 3;
-    private bool isIdle = false;
-    private float idleTime = 1;
+    //private float timeInDirection;
+    //private bool isDead = false;
+    //private int moveTimer = 3;
+    //private bool isIdle = false;
+    //private float idleTime = 1;
 
     [SerializeField]
     private float rotationSpeed;
 
     private Rigidbody2D rb;
-
-    private Enemy_Awarness ea;
     private Enemy_Awarness enemyAwarness;
 
     private Vector2 targetDirection;
-
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //_animator = GetComponent<Animator>();
-    //    timeInDirection = distanceTime;
-    //}
-
-    // Update is called once per frame
 
     private void Awake()
     {
@@ -94,17 +85,31 @@ public class Enemy_Tank : MonoBehaviour
         RotateTwordsTarget();
         SetVolocity();
     }
+    
+    // private void UpdateTargetDirection()
+    //{
+    //    if (enemyAwarness.AwareOfPlayer)
+    //    {
+    //        targetDirection = enemyAwarness.DirectionToPlayer;
+    //    }
+
+    //    else
+    //    {
+    //        targetDirection = Vector2.zero;
+    //    }
+    //}
 
     private void UpdateTargetDirection()
     {
-        if (Enemy_Awarness.AwareOfPlayer)
+        if (enemyAwarness != null && enemyAwarness.AwareOfPlayer)
         {
-            targetDirection = Enemy_Awarness.DirectionToPlayer;
+          // ensure it's a Unity Vector2 and normalize if used for rotation/velocity
+            targetDirection = enemyAwarness.DirectionToPlayer;
         }
-
         else
         {
-            targetDirection = Vector2.zero;
+            // fallback: use patrol direction so enemy still moves when not chasing
+             targetDirection = Vector2.zero;
         }
     }
 
@@ -115,7 +120,7 @@ public class Enemy_Tank : MonoBehaviour
             return;
         }
 
-        Quaternion targetRotation = Quaternion.LookRotation(transfrom.forword, targetDirection);
+        Quaternion targetRotation = Quaternion.LookRotation(transform.forward, targetDirection);
         Quaternion rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         rb.SetRotation(rotation);
@@ -129,7 +134,7 @@ public class Enemy_Tank : MonoBehaviour
         }
         else
         {
-           rb.velocity = transform.up * speed
+            rb.velocity = transform.up * speed;
         }
     }    
 

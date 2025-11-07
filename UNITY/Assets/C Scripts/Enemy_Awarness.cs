@@ -7,6 +7,7 @@ public class Enemy_Awarness : MonoBehaviour
 
     public bool AwareOfPlayer { get; private set; }
 
+    [SerializeField]
     public Vector2 DirectionToPlayer { get; private set; }
 
     [SerializeField]
