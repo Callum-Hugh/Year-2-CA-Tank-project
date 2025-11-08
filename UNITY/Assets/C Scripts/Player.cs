@@ -68,7 +68,6 @@ public class Player : MonoBehaviour
 
         if(movementDirection != Vector2.zero)
         {
-            angleOffset = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg + 90f;
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
          }

@@ -12,19 +12,22 @@ public class Thunder_Area_attack : MonoBehaviour
     public LayerMask enemyMask;
 
     public Enemy_Tank enemy;
-    
+
+    private Animation animation;
 
     [Header("Cooldown")]
     public float attackCooldownTime = 2f; 
+    
     private float attackCooldownTimer = 0f;
 
     private void Start()
     {
         attackCooldownTimer = 0f;  
+        animation = GetComponent<Animation>();
     }
 
     private void Update()
-    {
+    { 
         if (attackCooldownTimer > 0)
         {
             attackCooldownTimer -= Time.deltaTime;
@@ -32,6 +35,8 @@ public class Thunder_Area_attack : MonoBehaviour
 
         if (attackCooldownTimer <= 0 && Input.GetKeyDown(KeyCode.Space))
         {
+            //animation.SetTrigger("ThunderAreaAttack");
+
 
             if (attackOrigin != null)
             {
