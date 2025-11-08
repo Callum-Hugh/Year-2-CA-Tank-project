@@ -31,7 +31,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D rb;
     public bool smoothRotation = true;
     private bool AreaAttacking = false;
-    public float angleOffset = 90f; // add if sprite's art faces up instead of right
+    public float angleOffset = 90f; 
 
     public HealthBar healthBar;
 
@@ -59,30 +59,22 @@ public class Player : MonoBehaviour
         transform.position = position;
 
         Vector2 movemntDirection = new Vector2(moveX, moveY);
+
+        Vector2 movementDirection = new Vector2(moveX, moveY);
+        float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
         movemntDirection.Normalize();
 
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    GameObject projectile = Instantiate(projectilePrefab, rb.position, Quaternion.identity);
-        //     Projectile pr = projectile.GetComponent<Projectile>();
-        //       pr.Launch(new Vector2(animator.GetInteger("Direction X"), animator.GetInteger("Direction Y")), 300);
-        //     }
+        transform.Translate(movemntDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
 
-        //Rotating the pleyer Got help from chatGPT to roatate
-        Vector2 movementDirection = new Vector2(moveX, moveY);
-
-        if (movementDirection.sqrMagnitude > 0.01f)
+        if(movementDirection != Vector2.zero)
         {
-            float targetAngle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg + 90f; 
-
-            Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
-
-            if (smoothRotation)
-                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            else
-                transform.rotation = targetRotation;
-        }
-
+            angleOffset = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg + 90f;
+            Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+         }
+        
+            
+        
     
         if (Input.GetKeyDown(KeyCode.F))
         {
