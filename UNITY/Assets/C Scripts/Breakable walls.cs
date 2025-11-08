@@ -7,12 +7,10 @@ public class BreakableWall : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Prefer reading damage from a Projectile component
         Projectile proj = collision.GetComponent<Projectile>();
         if (proj != null)
         {
-            health -= proj.damage;
-            Debug.Log($"{name} hit by projectile for {proj.damage} dmg. Remaining: {health}");
+            health -= 10;
             if (health <= 0 && !destroyed)
             {
                 destroyed = true;
@@ -21,11 +19,9 @@ public class BreakableWall : MonoBehaviour
             return;
         }
 
-        // Fallback: tag-based single damage
-        if (collision.CompareTag("PlayerProjectile"))
+        if (collision.CompareTag("Projectile"))
         {
             health--;
-            Debug.Log($"{name} hit by tagged projectile. Remaining: {health}");
             if (health <= 0 && !destroyed)
             {
                 destroyed = true;

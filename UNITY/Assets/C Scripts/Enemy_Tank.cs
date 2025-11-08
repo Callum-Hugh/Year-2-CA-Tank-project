@@ -4,13 +4,12 @@ public class Enemy_Tank : MonoBehaviour
 {
 
     //Animator _animator;
-
-    public int directionX = 0;
-    public int directionY = 0;
     public float distanceTime;
 
     [SerializeField]
     public float speed;
+
+    [SerializeField]
     public int health;
 
     public int currentHealth;
@@ -18,6 +17,11 @@ public class Enemy_Tank : MonoBehaviour
     public HealthBar healthBar;
 
     public bool isDead = false;
+
+    [SerializeField]
+    private float moveSpeed = 5f;
+
+    Transform target;
 
     //private float timeInDirection;
     //private int moveTimer = 3;
@@ -32,65 +36,30 @@ public class Enemy_Tank : MonoBehaviour
 
     private Vector2 targetDirection;
 
-    void Start()
-    {
-        currentHealth = health;
-        healthBar.SetMaxHealth(health);
-    }
+    private Vector2 moveDirection;
+
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        enemyAwarness = GetComponent<Enemy_Awarness>();
+    }
+
+    void Start()
+    {
+        currentHealth = health;
+        healthBar.SetMaxHealth(health);
+        target = GameObject.Find("Player_Body").transform;
     }
 
     void Update()
     {
-
-
-
-        //  if (!isDead)
-        //  {
-
-        //      if (isIdle && idleTime < 0)
-        //      {
-        //        directionX = directionX * -1;
-        //       timeInDirection = distanceTime;
-        //       isIdle = false;
-        //_animator.SetInteger("Direction X", directionX);
-        //_animator.SetInteger("Direction Y", directionY);
-        //_animator.SetFloat("Move", 1);
-        // }
-
-        //else if (!isIdle && timeInDirection < 0)
-        //{
-        //  isIdle = true;
-        // idleTime = 1;
-        //}
-
-        //if (!isIdle)
-        //{
-        //    Vector2 pos = transform.position;
-        //    pos.x = pos.x + (speed * Time.deltaTime * directionX);
-        //    transform.position = pos;
-        //    timeInDirection -= Time.deltaTime;
-        //}
-
-        //if (!isIdle)
-        //{
-        //    Vector2 pos = transform.position;
-        //    pos.y = pos.y + (speed * Time.deltaTime * directionY);
-        //    transform.position = pos;
-        //    timeInDirection -= Time.deltaTime;
-        //}
-
-
-        //        else
-        //        {
-        //            idleTime -= Time.deltaTime;
-        //        }
-
-        //    }
+        if(target)
+        {
+            Vector3 direction = (target.position - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            rb.rotation = angle;
+            moveDirection = direction;
+        }
     }
 
     void FixedUpdate()
@@ -98,6 +67,11 @@ public class Enemy_Tank : MonoBehaviour
         UpdateTargetDirection();
         RotateTwordsTarget();
         SetVolocity();
+
+        if(target)
+        {
+            rb.velocity = new Vector2(moveDirection.x, moveDirection.y) * moveSpeed;
+        }
     }
 
     // private void UpdateTargetDirection()

@@ -13,7 +13,7 @@ public class Thunder_Area_attack : MonoBehaviour
 
     public Enemy_Tank enemy;
 
-    private Animation animation;
+    //private Animation animation;
 
     [Header("Cooldown")]
     public float attackCooldownTime = 2f; 
@@ -23,7 +23,7 @@ public class Thunder_Area_attack : MonoBehaviour
     private void Start()
     {
         attackCooldownTimer = 0f;  
-        animation = GetComponent<Animation>();
+        //animation = GetComponent<Animation>();
     }
 
     private void Update()
