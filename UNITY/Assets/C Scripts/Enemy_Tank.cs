@@ -21,7 +21,11 @@ public class Enemy_Tank : MonoBehaviour
 
     public float lineOfSight;
 
-    [SerializeField]
+    public float shootingRange;
+
+    public float attackCoolDown;
+
+    //[SerializeField]
     //private float moveSpeed;
 
     //Transform target;
@@ -29,14 +33,20 @@ public class Enemy_Tank : MonoBehaviour
     //[SerializeField]
     //private float rotationSpeed;
 
+    public GameObject EnemyProjectile;
+
+    public GameObject projectileParent;
+
     private Rigidbody2D rb;
-    private Enemy_Awarness enemyAwarness;
+    //private Enemy_Awarness enemyAwarness;
 
-    private Vector2 targetDirection;
+    //private Vector2 targetDirection;
 
-    private Vector2 moveDirection;
+    //private Vector2 moveDirection;
 
     private Transform player;
+
+    private float attackTimer;
 
 
     private void Awake()
@@ -65,9 +75,15 @@ public class Enemy_Tank : MonoBehaviour
         */
 
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
-        if (distanceFromPlayer < lineOfSight)
+        if (distanceFromPlayer < lineOfSight && distanceFromPlayer > shootingRange)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
+        }
+
+        else if(distanceFromPlayer <= shootingRange && attackTimer < Time.time)
+        {
+            Instantiate(EnemyProjectile, projectileParent.transform.position, Quaternion.identity);
+            attackTimer = Time.time + attackCoolDown;
         }
     }
 
@@ -75,6 +91,8 @@ public class Enemy_Tank : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, lineOfSight);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, shootingRange); 
     }
 
 /*

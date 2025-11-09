@@ -9,7 +9,7 @@ public class Enemyprojectile : MonoBehaviour
     public float speed;
 
     Rigidbody2D rb;
-    // Start is called before the first frame update
+
     void Start()
     {
 
@@ -17,12 +17,11 @@ public class Enemyprojectile : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         Vector2 direction = (player.transform.position - transform.position).normalized * speed;
         rb.velocity = new Vector2(direction.x, direction.y);
-        Destroy(this.gameObject, 2);  
+        Destroy(this.gameObject, 2);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        Destroy(gameObject);
     }
 }

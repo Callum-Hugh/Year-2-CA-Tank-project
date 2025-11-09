@@ -66,15 +66,15 @@ public class Player : MonoBehaviour
 
         transform.Translate(movemntDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
 
-        if(movementDirection != Vector2.zero)
+        if (movementDirection != Vector2.zero)
         {
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
-         }
-        
-            
-        
-    
+        }
+
+
+
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             // Determine shooting direction: movement direction if moving, otherwise the tank's facing (transform.up)
@@ -86,12 +86,8 @@ public class Player : MonoBehaviour
             {
                 pr.Launch(shootDirection, projectileSpeed);
             }
-        }
+        } 
 
-       
-
-        
-        
         //Test healthbar
         //if(Input.GetKeyDown(KeyCode.H))
         //{
@@ -99,6 +95,15 @@ public class Player : MonoBehaviour
         //}
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemyprojectile"))
+        {
+            TakeDamege(10);
+        }
+    }
+
+    
     void TakeDamege(int damage)
     {
         currentHealth -= damage;
