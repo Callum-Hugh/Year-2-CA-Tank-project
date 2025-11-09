@@ -1,10 +1,11 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Enemy_Tank : MonoBehaviour
 {
 
     //Animator _animator;
-    public float distanceTime;
+    //public float distanceTime;
 
     [SerializeField]
     public float speed;
@@ -18,18 +19,15 @@ public class Enemy_Tank : MonoBehaviour
 
     public bool isDead = false;
 
-    [SerializeField]
-    private float moveSpeed = 5f;
-
-    Transform target;
-
-    //private float timeInDirection;
-    //private int moveTimer = 3;
-    //private bool isIdle = false;
-    //private float idleTime = 1;
+    public float lineOfSight;
 
     [SerializeField]
-    private float rotationSpeed;
+    //private float moveSpeed;
+
+    //Transform target;
+
+    //[SerializeField]
+    //private float rotationSpeed;
 
     private Rigidbody2D rb;
     private Enemy_Awarness enemyAwarness;
@@ -37,6 +35,8 @@ public class Enemy_Tank : MonoBehaviour
     private Vector2 targetDirection;
 
     private Vector2 moveDirection;
+
+    private Transform player;
 
 
     private void Awake()
@@ -48,25 +48,43 @@ public class Enemy_Tank : MonoBehaviour
     {
         currentHealth = health;
         healthBar.SetMaxHealth(health);
-        target = GameObject.Find("Player_Body").transform;
+        //target = GameObject.Find("Player_Body").transform;
+        player = GameObject.FindWithTag("Player").transform;
     }
 
     void Update()
     {
-        if(target)
+        /*
+        if (target)
         {
             Vector3 direction = (target.position - transform.position).normalized;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
             moveDirection = direction;
         }
+        */
+
+        float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
+        if (distanceFromPlayer < lineOfSight)
+        {
+            transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
+        }
     }
 
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, lineOfSight);
+    }
+
+/*
     void FixedUpdate()
     {
+        
         UpdateTargetDirection();
         RotateTwordsTarget();
         SetVolocity();
+    
 
         if(target)
         {
@@ -74,18 +92,6 @@ public class Enemy_Tank : MonoBehaviour
         }
     }
 
-    // private void UpdateTargetDirection()
-    //{
-    //    if (enemyAwarness.AwareOfPlayer)
-    //    {
-    //        targetDirection = enemyAwarness.DirectionToPlayer;
-    //    }
-
-    //    else
-    //    {
-    //        targetDirection = Vector2.zero;
-    //    }
-    //}
 
     private void UpdateTargetDirection()
     {
@@ -125,10 +131,11 @@ public class Enemy_Tank : MonoBehaviour
             rb.velocity = transform.up * speed;
         }
     }
+*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Projectile"))
+        if (collision.CompareTag("Projectile"))
         {
             TakeDamage(10);
         }
