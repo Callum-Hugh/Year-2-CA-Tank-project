@@ -17,11 +17,13 @@ public class Enemyprojectile : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         Vector2 direction = (player.transform.position - transform.position).normalized * speed;
         rb.velocity = new Vector2(direction.x, direction.y);
-        Destroy(this.gameObject, 2);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Destroy(gameObject);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
     }
 }

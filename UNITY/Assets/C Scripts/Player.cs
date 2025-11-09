@@ -30,7 +30,8 @@ public class Player : MonoBehaviour
 
     private Rigidbody2D rb;
     public bool smoothRotation = true;
-    private bool AreaAttacking = false;
+
+    //private bool AreaAttacking = false;
     public float angleOffset = 90f; 
 
     public HealthBar healthBar;
@@ -72,9 +73,6 @@ public class Player : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
         }
 
-
-
-
         if (Input.GetKeyDown(KeyCode.F))
         {
             // Determine shooting direction: movement direction if moving, otherwise the tank's facing (transform.up)
@@ -87,17 +85,11 @@ public class Player : MonoBehaviour
                 pr.Launch(shootDirection, projectileSpeed);
             }
         } 
-
-        //Test healthbar
-        //if(Input.GetKeyDown(KeyCode.H))
-        //{
-        //    TakeDamege(10);
-        //}
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemyprojectile"))
+        if (collision.CompareTag("EnemyProjectile"))
         {
             TakeDamege(10);
         }
