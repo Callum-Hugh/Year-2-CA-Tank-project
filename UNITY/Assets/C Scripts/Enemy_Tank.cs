@@ -32,10 +32,16 @@ public class Enemy_Tank : MonoBehaviour
 
     private Transform player;
 
+    private Transform walls;
+
     private float attackTimer;
 
     [SerializeField]
     private float rotationSpeed;
+
+    private bool touchingWalls = false;
+
+    public float moveBackTimer;
 
     private void Awake()
     {
@@ -47,6 +53,7 @@ public class Enemy_Tank : MonoBehaviour
         currentHealth = health;
         healthBar.SetMaxHealth(health);
         player = GameObject.FindWithTag("Player").transform;
+        walls = GameObject.FindWithTag("Walls").transform;
     }
 
     void Update()
@@ -58,10 +65,15 @@ public class Enemy_Tank : MonoBehaviour
             transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
         }
 
-        else if(distanceFromPlayer <= shootingRange && attackTimer < Time.time)
+        else if (distanceFromPlayer <= shootingRange && attackTimer < Time.time)
         {
             Instantiate(EnemyProjectile, projectileParent.transform.position, Quaternion.identity);
             attackTimer = Time.time + attackCoolDown;
+        }
+        
+        if(touchingWalls == true)
+        {
+            transform.position = Vector2.MoveTowards(this.transform.position, player.position ,speed * Time.deltaTime);
         }
     }
 
@@ -82,7 +94,13 @@ public class Enemy_Tank : MonoBehaviour
             TakeDamage(10);
         }
 
+        if(collision.CompareTag("Walls"))
+        {
+            touchingWalls = true;
+        }
+
     }
+
 
     public void TakeDamage(int damage)
     {

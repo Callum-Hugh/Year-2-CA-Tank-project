@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -38,7 +39,7 @@ public class Player : MonoBehaviour
 
     public HealthBar healthBar;
 
-
+    public float deathTimer = 3f;
 
     // Start is called before the first frame update
     void Start()
@@ -63,6 +64,7 @@ public class Player : MonoBehaviour
 
         Vector2 movementDirection = new Vector2(moveX, moveY);
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
+
 
         // When the player moves in a direction the tank rotates in the direction of the movemnt.
         if (movementDirection.sqrMagnitude > 0.0001f)
@@ -116,6 +118,10 @@ public class Player : MonoBehaviour
         alive = false;
 
         Destroy(gameObject);
+
+            SceneManager.LoadScene("Menu");
+        
+
     }
 
 }
