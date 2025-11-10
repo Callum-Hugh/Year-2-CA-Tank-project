@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy_Tank : MonoBehaviour
 {
@@ -40,6 +41,10 @@ public class Enemy_Tank : MonoBehaviour
     private float rotationSpeed;
 
     private bool touchingWalls = false;
+
+    private int amountOfEnemys;
+
+    private int maxEnemys = 2;
 
     private void Awake()
     {
@@ -108,8 +113,19 @@ public class Enemy_Tank : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            amountOfEnemys++;
             Dead();
+
+            if(amountOfEnemys >= maxEnemys){
+                Victory();
+            }
+
         }
+    }
+
+    void Victory()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     void Dead()

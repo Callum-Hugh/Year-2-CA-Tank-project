@@ -26,16 +26,19 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private Vector2 startPosition;
-    
+    [Header("Rotation")]
     private GameObject ThunderAreaAttack;
 
     private Rigidbody2D rb;
+    public bool smoothRotation = true;
 
-    public float angleOffset = 90f; 
-    
     private Vector2 lastMovementDirection = Vector2.up;
 
     public HealthBar healthBar;
+
+    public float attackCoolDown;
+
+    public float attackTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -74,12 +77,14 @@ public class Player : MonoBehaviour
 
         }
 
-        if (Input.GetKeyDown(KeyCode.F))
+
+        if (Input.GetKeyDown(KeyCode.F) && attackedTimer < Time.time)
         {
             Vector2 aimDirection = lastMovementDirection;
 
             GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile pr = projectile.GetComponent<Projectile>();
+            attackedTimer = Time.time + attackCoolDown;
 
             if (pr != null)
             {
@@ -96,7 +101,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    
+
     void TakeDamege(int damage)
     {
         currentHealth -= damage;
@@ -115,9 +120,8 @@ public class Player : MonoBehaviour
 
         Destroy(gameObject);
 
-            SceneManager.LoadScene("Menu");
         
-
+        
     }
 
 }

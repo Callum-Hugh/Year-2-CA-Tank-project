@@ -186,8 +186,7 @@ MonoBehaviour:
   EnemyProjectile: {fileID: 485789331444149367, guid: 73408bc55e55112439359223d8ab4904, type: 3}
   projectileParent: {fileID: 4801449239148940409}
   rotationSpeed: 720
-  angleOffset: 90
-  moveBackTimer: 0
+  maxEnemys: 2
 --- !u!95 &5493865034181133420
 Animator:
   serializedVersion: 5
