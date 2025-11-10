@@ -42,15 +42,15 @@ public class Enemy_Tank : MonoBehaviour
 
     private bool touchingWalls = false;
 
-    private int amountOfEnemys;
-
-    private int maxEnemys = 2;
+    private int maxEnemys = 1;
 
     private AudioSource _audio;
 
     private bool isPlaying = false;
 
     public AudioClip collectSound;
+
+    private int enemysDead;
 
     private void Awake()
     {
@@ -123,10 +123,10 @@ public class Enemy_Tank : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            amountOfEnemys++;
+            enemysDead++;
             Dead();
 
-            if(amountOfEnemys >= maxEnemys){
+            if(enemysDead > maxEnemys){
                 Victory();
             }
 

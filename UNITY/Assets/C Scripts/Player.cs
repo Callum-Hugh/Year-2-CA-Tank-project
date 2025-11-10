@@ -130,7 +130,7 @@ public class Player : MonoBehaviour
 
         Destroy(gameObject);
 
-        
+        SceneManager.LoadScene("Menu");
         
     }
 
