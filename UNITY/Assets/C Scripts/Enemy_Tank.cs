@@ -41,8 +41,6 @@ public class Enemy_Tank : MonoBehaviour
 
     private bool touchingWalls = false;
 
-    public float moveBackTimer;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

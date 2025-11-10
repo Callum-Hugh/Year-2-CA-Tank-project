@@ -26,20 +26,16 @@ public class Player : MonoBehaviour
 
     private Animator animator;
     private Vector2 startPosition;
-    [Header("Rotation")]
+    
     private GameObject ThunderAreaAttack;
 
     private Rigidbody2D rb;
-    public bool smoothRotation = true;
 
-    //private bool AreaAttacking = false;
     public float angleOffset = 90f; 
-    // store the last non-zero movement direction so player can shoot where they last moved
+    
     private Vector2 lastMovementDirection = Vector2.up;
 
     public HealthBar healthBar;
-
-    public float deathTimer = 3f;
 
     // Start is called before the first frame update
     void Start()
