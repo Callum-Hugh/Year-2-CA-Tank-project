@@ -4,9 +4,6 @@ using UnityEngine;
 public class Enemy_Tank : MonoBehaviour
 {
 
-    //Animator _animator;
-    //public float distanceTime;
-
     [SerializeField]
     public float speed;
 
@@ -37,6 +34,8 @@ public class Enemy_Tank : MonoBehaviour
 
     private float attackTimer;
 
+    [SerializeField]
+    private float rotationSpeed;
 
     private void Awake()
     {
@@ -52,7 +51,6 @@ public class Enemy_Tank : MonoBehaviour
 
     void Update()
     {
-        
 
         float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
         if (distanceFromPlayer < lineOfSight && distanceFromPlayer > shootingRange)

@@ -16,9 +16,11 @@ public class Thunder_Area_attack : MonoBehaviour
     //private Animation animation;
 
     [Header("Cooldown")]
-    public float attackCooldownTime = 2f; 
-    
+    public float attackCooldownTime = 2f;
+
     private float attackCooldownTimer = 0f;
+
+    int active = 0;
 
     private void Start()
     {
@@ -27,7 +29,9 @@ public class Thunder_Area_attack : MonoBehaviour
     }
 
     private void Update()
-    { 
+    {
+        //animation.SetInteager("Help");
+
         if (attackCooldownTimer > 0)
         {
             attackCooldownTimer -= Time.deltaTime;
@@ -35,7 +39,7 @@ public class Thunder_Area_attack : MonoBehaviour
 
         if (attackCooldownTimer <= 0 && Input.GetKeyDown(KeyCode.Space))
         {
-            //animation.SetTrigger("ThunderAreaAttack");
+            
 
 
             if (attackOrigin != null)
