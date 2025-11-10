@@ -8,6 +8,8 @@ public class BreakableWall : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Projectile proj = collision.GetComponent<Projectile>();
+        Enemyprojectile enemyProj = collision.GetComponent<Enemyprojectile>();
+
         if (proj != null)
         {
             health -= 10;
@@ -16,17 +18,17 @@ public class BreakableWall : MonoBehaviour
                 destroyed = true;
                 Destroy(gameObject);
             }
-            return;
         }
 
-        if (collision.CompareTag("Projectile"))
+        if(enemyProj != null)
         {
-            health--;
+            health -= 5;
             if (health <= 0 && !destroyed)
             {
                 destroyed = true;
                 Destroy(gameObject);
             }
         }
+
     }
 }

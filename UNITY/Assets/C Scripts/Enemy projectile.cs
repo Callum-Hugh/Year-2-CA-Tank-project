@@ -6,6 +6,8 @@ public class Enemyprojectile : MonoBehaviour
 {
     GameObject player;
 
+    GameObject walls;
+
     public float speed;
 
     Rigidbody2D rb;
@@ -22,6 +24,11 @@ public class Enemyprojectile : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
+        {
+            Destroy(gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Walls"))
         {
             Destroy(gameObject);
         }
