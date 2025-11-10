@@ -40,6 +40,12 @@ public class Player : MonoBehaviour
 
     public float attackTimer;
 
+    private AudioSource _audio;
+
+    private bool isPlaying = false;
+
+    public AudioClip collectSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -48,6 +54,7 @@ public class Player : MonoBehaviour
         ThunderAreaAttack = transform.GetChild(0).gameObject;
         currentHealth = health;
         healthBar.SetMaxHealth(health);
+        _audio.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -74,6 +81,9 @@ public class Player : MonoBehaviour
 
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
+            //_audio.Play();
+            //isPlaying = true;
 
         }
 

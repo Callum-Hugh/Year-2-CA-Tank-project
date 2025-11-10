@@ -46,6 +46,12 @@ public class Enemy_Tank : MonoBehaviour
 
     private int maxEnemys = 2;
 
+    private AudioSource _audio;
+
+    private bool isPlaying = false;
+
+    public AudioClip collectSound;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -57,6 +63,7 @@ public class Enemy_Tank : MonoBehaviour
         healthBar.SetMaxHealth(health);
         player = GameObject.FindWithTag("Player").transform;
         walls = GameObject.FindWithTag("Walls").transform;
+        _audio.GetComponent<AudioSource>();
     }
 
     void Update()
@@ -66,6 +73,9 @@ public class Enemy_Tank : MonoBehaviour
         if (distanceFromPlayer < lineOfSight && distanceFromPlayer > shootingRange)
         {
             transform.position = Vector2.MoveTowards(this.transform.position, player.position, speed * Time.deltaTime);
+
+            //_audio.Play();
+            //isPlaying = true;
         }
 
         else if (distanceFromPlayer <= shootingRange && attackTimer < Time.time)

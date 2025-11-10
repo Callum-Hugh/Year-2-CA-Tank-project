@@ -4555,6 +4555,10 @@ PrefabInstance:
       propertyPath: maxEnemys
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8817319720839521098, guid: f20c159a1f2350f449c301b230df9143, type: 3}
+      propertyPath: collectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8dcc253e5bed3104fbde20a03fd61dd1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6646,8 +6650,9 @@ MonoBehaviour:
   projectilePrefab: {fileID: 895070265}
   smoothRotation: 1
   healthBar: {fileID: 267001019}
-  attackCoolDown: 0
+  attackCoolDown: 1.5
   attackTimer: 0
+  collectSound: {fileID: 8300000, guid: 8dcc253e5bed3104fbde20a03fd61dd1, type: 3}
 --- !u!50 &1479241072
 Rigidbody2D:
   serializedVersion: 4
@@ -7187,6 +7192,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 490748525}
+    - target: {fileID: 8817319720839521098, guid: f20c159a1f2350f449c301b230df9143, type: 3}
+      propertyPath: collectSound
+      value: 
+      objectReference: {fileID: 8300000, guid: 8dcc253e5bed3104fbde20a03fd61dd1, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
