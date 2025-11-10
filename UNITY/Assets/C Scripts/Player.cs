@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
 
     //private bool AreaAttacking = false;
     public float angleOffset = 90f; 
+    // store the last non-zero movement direction so player can shoot where they last moved
+    private Vector2 lastMovementDirection = Vector2.up;
 
     public HealthBar healthBar;
 
@@ -59,32 +61,33 @@ public class Player : MonoBehaviour
         position.y = position.y + speed * Time.deltaTime * moveY;
         transform.position = position;
 
-        Vector2 movemntDirection = new Vector2(moveX, moveY);
-
         Vector2 movementDirection = new Vector2(moveX, moveY);
         float inputMagnitude = Mathf.Clamp01(movementDirection.magnitude);
-        movemntDirection.Normalize();
 
-        transform.Translate(movemntDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
-
-        if (movementDirection != Vector2.zero)
+        // When the player moves in a direction the tank rotates in the direction of the movemnt.
+        if (movementDirection.sqrMagnitude > 0.0001f)
         {
+            movementDirection.Normalize();
+            lastMovementDirection = movementDirection;
+            transform.Translate(movementDirection * speed * inputMagnitude * Time.deltaTime, Space.World);
+
             Quaternion toRotation = Quaternion.LookRotation(Vector3.forward, movementDirection);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, rotationSpeed * Time.deltaTime);
+
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            // Determine shooting direction: movement direction if moving, otherwise the tank's facing (transform.up)
-            Vector2 shootDirection = movementDirection.sqrMagnitude > 0.01f ? movementDirection.normalized : (Vector2)transform.up;
+            Vector2 aimDirection = lastMovementDirection;
 
             GameObject projectile = Instantiate(projectilePrefab, transform.position, transform.rotation);
             Projectile pr = projectile.GetComponent<Projectile>();
+
             if (pr != null)
             {
-                pr.Launch(shootDirection, projectileSpeed);
+                pr.Launch(aimDirection, projectileSpeed);
             }
-        } 
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -112,7 +115,6 @@ public class Player : MonoBehaviour
     {
         alive = false;
 
-        Debug.Log("Player Dead");
         Destroy(gameObject);
     }
 
